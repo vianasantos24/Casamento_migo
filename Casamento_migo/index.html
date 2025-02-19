@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme & Cíntia - Nossa História</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #537578;
+            --secondary-color: #FFFAED;
+            --accent-color: #e8d5c4;
+            --text-color: #333;
+            --timeline-color: #537578;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8d5c4 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            padding: 2rem 1rem;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            right: -10%;
+            height: 100%;
+            background: white;
+            transform: rotate(-3deg);
+        }
+
+        .section {
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Counter Styles */
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            padding: 0.5rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .counter-item {
+            background: white;
+            border-radius: 12px;
+            padding: 0.8rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .counter-item:active {
+            transform: translateY(-5px);
+        }
+
+        .counter-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .counter-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        /* Timeline Styles - Mobile First */
+        .timeline {
+            position: relative;
+            padding: 1rem;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            width: 2px;
+            height: 100%;
+            background: var(--timeline-color);
+            top: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid white;
+            border-radius: 50%;
+            left: -2.5rem;
+            top: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .timeline-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-text {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+        }
+
+        /* Scratch Card Styles */
+        .scratch-card {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .scratch-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 1rem;
+        }
+
+        .scratch-image {
+            max-width: 100%;
+            max-height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .scratch-message {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        @media (min-width: 768px) {
+            .timeline {
+                max-width: 800px;
+            }
+
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .timeline-item {
+                padding-left: 0;
+                width: 50%;
+            }
+
+            .timeline-item:nth-child(odd) {
+                margin-left: 0;
+                padding-right: 2rem;
+            }
+
+            .timeline-item:nth-child(even) {
+                margin-left: 50%;
+                padding-left: 2rem;
+            }
+
+            .timeline-content::before {
+                left: auto;
+                right: -2.5rem;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content::before {
+                right: auto;
+                left: -2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Guilherme & Cíntia</h1>
+        <p>Nossa História de Amor</p>
+    </header>
+
+    <section class="section">
+        <h2 class="section-title">Nossa história começou há</h2>
+        <div class="counter-grid">
+            <div class="counter-item">
+                <div class="counter-number" id="anos">0</div>
+                <div class="counter-label">Anos</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="meses">0</div>
+                <div class="counter-label">Meses</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="dias">0</div>
+                <div class="counter-label">Dias</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="horas">0</div>
+                <div class="counter-label">Horas</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="minutos">0</div>
+                <div class="counter-label">Minutos</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="segundos">0</div>
+                <div class="counter-label">Segundos</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Nossa História</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Setembro 2018</div>
+                    <h3 class="timeline-title">Onde Tudo Começou</h3>
+                    <img src="imagens/fotosesi.jpg" alt="Onde nos conhecemos" class="timeline-image">
+                    <p class="timeline-text">No SESI, onde nossos caminhos se cruzaram pela primeira vez. Um encontro que mudaria nossas vidas para sempre...</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Outubro 2018</div>
+                    <h3 class="timeline-title">Primeiro Beijo</h3>
+                    <img src="imagens/fotomapa.png" alt="Local do primeiro beijo" class="timeline-image">
+                    <p class="timeline-text">Um momento mágico que marcou o início de nossa história de amor...</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Dezembro 2018</div>
+                    <h3 class="timeline-title">Primeiro Natal Juntos</h3>
+                    <img src="imagens/foto1.jpeg" alt="Primeiro Natal" class="timeline-image">
+                    <p class="timeline-text">Celebrando nosso primeiro Natal juntos, criando memórias que durarão para sempre...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Nossos Momentos</h2>
+        <div class="carousel">
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <img src="imagens/foto1.jpeg" alt="Momento 1" class="carousel-image">
+                </div>
+            </div>
+            <div class="carousel-nav">
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Uma Surpresa Especial</h2>
+        <div class="scratch-card">
+            <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
+            <div class="scratch-content">
+                <img src="imagens/fotoairbnb.png" alt="Surpresa Especial" class="scratch-image">
+                <p class="scratch-message">E é aqui que nossa história ganha um novo capítulo.<br>Te amo, minha pretinha</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Counter
+        function updateCounter() {
+            const start = new Date("2018-09-08T12:00:00");
+            const now = new Date();
+            const diff = now - start;
+            
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
+
+            document.getElementById("anos").textContent = years;
+            document.getElementById("meses").textContent = months % 12;
+            document.getElementById("dias").textContent = days % 30;
+            document.getElementById("horas").textContent = hours % 24;
+            document.getElementById("minutos").textContent = minutes % 60;
+            document.getElementById("segundos").textContent = seconds % 60;
+        }
+
+        setInterval(updateCounter, 1000);
+
+        // Carousel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const container = document.querySelector('.carousel-container');
+        const nav = document.querySelector('.carousel-nav');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            nav.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+            currentSlide = index;
+            container.style.transform = `translateX(-${index * 100}%)`;
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Scratch Card
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        const scratchContainer = document.querySelector('.scratch-card');
+
+        function initCanvas() {
+            canvas.width = scratchContainer.offsetWidth;
+            canvas.height = scratchContainer.offsetHeight;
+            ctx.fillStyle = '#FFFAED';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        initCanvas();
+        window.addEventListener('resize', initCanvas);
+
+        let isScratching = false;
+
+        function getPosition(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.clientX || event.touches[0].clientX) - rect.left;
+            const y = (event.clientY || event.touches[0].clientY) - rect.top;
+            return { x, y };
+        }
+
+        function scratch(event) {
+            if (!isScratching) return;
+            const pos = getPosition(event);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 30, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousedown', () => isScratching = true);
+        canvas.addEventListener('mouseup', () => isScratching = false);
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('touchstart', () => isScratching = true);
+        canvas.addEventListener('touchend', () => isScratching = false);
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            scratch(e);
+        });
+    </script>
+</body>
+</html>
